@@ -56,8 +56,11 @@ export const store = createStore()
 
 const persister = createLocalPersister(store, 'point-cloud-app')
 
-await persister.startAutoLoad()
-await persister.startAutoSave()
+// Top level await not available in some browsers
+void (async () => {
+  await persister.startAutoLoad()
+  await persister.startAutoSave()
+})()
 
 export type Store = typeof store
 
